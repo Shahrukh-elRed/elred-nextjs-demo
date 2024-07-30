@@ -22,3 +22,41 @@
 .try-again-text {
   font-size: 20px;
 }
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#__next {
+  height: 100%;
+}
+
+.height-100 {
+  height: 100%;
+  overflow: hidden;
+}
+
+.iframe-cont {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
