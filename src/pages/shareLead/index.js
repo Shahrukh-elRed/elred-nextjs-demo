@@ -7,8 +7,8 @@ import {
 import Head from "next/head";
 import NotFound from "../component/notFound";
 
-function ShareProfile({ data, userCode }) {
-  if (!userCode) {
+function ShareNeed({ data, leadId, userCode }) {
+  if (!userCode || !leadId) {
     return <NotFound />;
   }
 
@@ -17,19 +17,15 @@ function ShareProfile({ data, userCode }) {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
-          property="og:title"
-          content={data?.profileTitle ?? ""}
-          key="title"
+          property="og:image"
+          content={data?.leadImageURL ?? "/"}
+          key="image"
         />
+        <meta property="og:title" content={data?.leadTitle ?? ""} key="title" />
         <meta
           property="og:description"
-          content={data?.description ?? ""}
+          content={data?.leadsDescription ?? ""}
           key="description"
-        />
-        <meta
-          property="og:image"
-          content={data?.cardImageURL ?? "/"}
-          key="image"
         />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="300" />
@@ -38,7 +34,7 @@ function ShareProfile({ data, userCode }) {
       <div className="d-flex align-item-center justify-content-center height-100">
         <iframe
           allow="web-share"
-          src={`${webviewURL}?userCode=${userCode}`}
+          src={`${webviewURL}/leads/responding-leads?leadId=${leadId}&userCode=${userCode}`}
           className="iframe-cont"
           title=""
         ></iframe>
@@ -49,29 +45,28 @@ function ShareProfile({ data, userCode }) {
 
 export async function getServerSideProps({ res, query }) {
   res.setHeader("Cache-Control", "no-store");
-  const userCode = query.userCode ?? "";
+  const leadId = query?.leadId ?? "";
+  const leadOwner_userCode = query?.leadOwner_userCode ?? "";
 
-  let url = `${baseURL}`;
-  if (userCode) {
-    url += `noSessionPreviewCardScreenshot?userCode=${userCode}`;
-  }
-
-  const response = await fetch(url, {
-    cache: "no-cache",
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      appDefaultHeader: Math.random() > 0.5 ? appHeaderKey1 : appHeaderKey2,
-    },
-  });
+  const response = await fetch(
+    `${baseURL}webViewPreviewLeadScreenshot?userCode=${leadOwner_userCode}&leadId=${leadId}`,
+    {
+      cache: "no-cache",
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        appDefaultHeader: Math.random() > 0.5 ? appHeaderKey1 : appHeaderKey2,
+      },
+    }
+  );
 
   const data = await response.json();
   const result = data?.result && data?.result?.length && data?.result[0];
 
   return {
-    props: { data: result, userCode },
+    props: { data: result, userCode: leadOwner_userCode, leadId },
   };
 }
 
-export default ShareProfile;
+export default ShareNeed;

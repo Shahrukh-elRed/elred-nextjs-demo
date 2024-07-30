@@ -21,7 +21,7 @@ function ShareCard({ data, userCode }) {
         <meta property="og:image:height" content="300" />
         <meta
           property="og:image"
-          content={data?.cardImageURL ?? ""}
+          content={data?.cardImageURL ?? "/"}
           key="image"
         />
         <meta property="og:title" content={data?.cardTitle ?? ""} key="title" />
