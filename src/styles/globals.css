@@ -4,3 +4,21 @@
   margin: 0;
 }
 
+.not-found-page {
+  height: 100vh;
+  font-weight: 500;
+  width: 375px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.something-went-wrong {
+  font-size: 24px;
+}
+
+.try-again-text {
+  font-size: 20px;
+}
