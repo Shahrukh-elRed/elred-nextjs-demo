@@ -13,14 +13,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #242429;
+}
+
+@media only screen and (max-width: 450px) {
+  .not-found-page {
+    width: 100vw;
+  }
 }
 
 .something-went-wrong {
   font-size: 24px;
+  color: #fff;
 }
 
 .try-again-text {
   font-size: 20px;
+  color: #fff;
 }
 
 * {
