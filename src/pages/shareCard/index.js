@@ -7,7 +7,7 @@ import {
 import Head from "next/head";
 import NotFound from "../component/notFound";
 
-function ShareProfile({ data, userCode }) {
+function ShareCard({ data, userCode }) {
   if (!userCode) {
     return <NotFound />;
   }
@@ -16,29 +16,21 @@ function ShareProfile({ data, userCode }) {
     <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          property="og:title"
-          content={data?.profileTitle ?? ""}
-          key="title"
-        />
-        <meta
-          property="og:description"
-          content={data?.description ?? ""}
-          key="description"
-        />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="300" />
+        <meta property="og:image:height" content="300" />
         <meta
           property="og:image"
           content={data?.cardImageURL ?? ""}
           key="image"
         />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="300" />
-        <meta property="og:image:height" content="300" />
+        <meta property="og:title" content={data?.cardTitle ?? ""} key="title" />
+        <meta property="og:description" content={data?.description ?? ""} />
       </Head>
       <div className="d-flex align-item-center justify-content-center height-100">
         <iframe
           allow="web-share"
-          src={`${webviewURL}?userCode=${userCode}`}
+          src={`${webviewURL}share-card?userCode=${userCode}`}
           className="iframe-cont"
           title=""
         ></iframe>
@@ -49,7 +41,7 @@ function ShareProfile({ data, userCode }) {
 
 export async function getServerSideProps({ res, query }) {
   res.setHeader("Cache-Control", "no-store");
-  const userCode = query.userCode ?? "";
+  const userCode = query?.userCode ?? "";
 
   let url = `${baseURL}`;
   if (userCode) {
@@ -74,4 +66,4 @@ export async function getServerSideProps({ res, query }) {
   };
 }
 
-export default ShareProfile;
+export default ShareCard;
