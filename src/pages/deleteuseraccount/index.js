@@ -1,4 +1,4 @@
-import { deleteUserURL } from "@/config";
+import { deleteUserURL } from "../..config";
 import Head from "next/head";
 
 const DeleteUserAccount = () => {
