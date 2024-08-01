@@ -7,7 +7,7 @@ import {
 import Head from "next/head";
 import NotFound from "../component/notFound";
 
-function ShareNeed({ data, leadId, userCode }) {
+function ShareLead({ data, leadId, userCode }) {
   if (!userCode || !leadId) {
     return <NotFound />;
   }
@@ -69,4 +69,4 @@ export async function getServerSideProps({ res, query }) {
   };
 }
 
-export default ShareNeed;
+export default ShareLead;
